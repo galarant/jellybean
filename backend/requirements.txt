@@ -1,0 +1,4 @@
+Django==1.8.4
+django-debug-toolbar==1.3.2
+django-extensions==1.5.7
+djangorestframework==3.2.4

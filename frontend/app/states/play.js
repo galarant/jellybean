@@ -1,6 +1,9 @@
+import _ from 'lodash';
+
 import { Bg } from 'lib/sprites/bg';
 import { Ground } from 'lib/sprites/ground';
 import { Jar } from 'lib/sprites/jar';
+import { Bean } from 'lib/sprites/bean';
 
 class PlayState extends Phaser.State {
 
@@ -17,7 +20,7 @@ class PlayState extends Phaser.State {
     //config physics
     this.game.physics.startSystem(Phaser.Physics.BOX2D);
     this.game.physics.box2d.setBoundsToWorld();
-    this.game.physics.box2d.gravity.y = 300;
+    this.game.physics.box2d.gravity.y = 700;
 
     //config game debug
     this.game.physics.box2d.debugDraw.shapes = true;
@@ -30,11 +33,16 @@ class PlayState extends Phaser.State {
     this.game.bg = new Bg(this.game);
     this.game.ground = new Ground(this.game);
     this.game.jar = new Jar(this.game);
+    _.times(60, this.make_bean, this);
+  }
+
+  make_bean() {
+    let bean = new Bean(this.game);
   }
 
   update() {
     //debug info
-    this.game.debug.box2dWorld();
+    //this.game.debug.box2dWorld();
   }
 
 }

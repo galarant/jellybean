@@ -18,6 +18,8 @@ class PreloadState extends Phaser.State {
     //load our assets
     this.load.image("bg", "static/assets/bg.jpg");
     this.load.image("jar", "static/assets/jar.png");
+    this.load.image("orange_bean", "static/assets/orange_bean.png");
+    this.load.image("black_bean", "static/assets/black_bean.png");
 
   }
 

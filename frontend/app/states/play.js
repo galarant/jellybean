@@ -1,3 +1,7 @@
+import { Bg } from 'lib/sprites/bg';
+import { Ground } from 'lib/sprites/ground';
+import { Jar } from 'lib/sprites/jar';
+
 class PlayState extends Phaser.State {
 
   preload() {}
@@ -13,6 +17,7 @@ class PlayState extends Phaser.State {
     //config physics
     this.game.physics.startSystem(Phaser.Physics.BOX2D);
     this.game.physics.box2d.setBoundsToWorld();
+    this.game.physics.box2d.gravity.y = 300;
 
     //config game debug
     this.game.physics.box2d.debugDraw.shapes = true;
@@ -22,14 +27,14 @@ class PlayState extends Phaser.State {
     this.game.physics.box2d.debugDraw.centerOfMass = true;
 
     //add game objects
-
+    this.game.bg = new Bg(this.game);
+    this.game.ground = new Ground(this.game);
+    this.game.jar = new Jar(this.game);
   }
 
   update() {
     //debug info
     this.game.debug.box2dWorld();
-    this.game.debug.cameraInfo(this.game.camera, 32, 32);
-    this.game.debug.text('Hello World', 32, 150);
   }
 
 }

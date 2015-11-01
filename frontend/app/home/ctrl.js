@@ -1,7 +1,7 @@
-import { TytonGame } from '../game';
+import { GuinGame } from '../game';
 
 function HomeController () {
-  new TytonGame();
+  var game = new GuinGame();
 }
 
 export { HomeController };

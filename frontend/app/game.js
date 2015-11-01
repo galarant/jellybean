@@ -2,7 +2,7 @@ import { BootState } from 'states/boot';
 import { PreloadState } from 'states/preload';
 import { PlayState } from 'states/play';
 
-class TytonGame extends Phaser.Game {
+class GuinGame extends Phaser.Game {
 
   constructor() {
     super('100%', '100%', Phaser.AUTO, '');
@@ -17,4 +17,4 @@ class TytonGame extends Phaser.Game {
 
 }
 
-export { TytonGame };
+export { GuinGame };

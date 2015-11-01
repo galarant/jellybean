@@ -26,6 +26,9 @@ class PreloadState extends Phaser.State {
     this.load.image("cat_1", "static/assets/cat_1.png");
     this.load.image("cat_2", "static/assets/cat_2.png");
     this.load.image("cat_3", "static/assets/cat_3.png");
+    this.load.image("note_ball", "static/assets/note_ball.png");
+    this.load.image("note", "static/assets/note.png");
+
   }
 
   create() {

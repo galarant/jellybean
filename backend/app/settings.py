@@ -92,5 +92,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "frontend/app/"),
     os.path.join(BASE_DIR, "frontend/static/"),
-    os.path.join(BASE_DIR, "frontend/node_modules/"), #thanks, Phaser
 )

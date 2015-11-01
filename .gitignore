@@ -32,5 +32,4 @@ var/
 # OSX Bullshit
 .DS_Store 
 
-frontend/static/built
 frontend/node_modules

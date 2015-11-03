@@ -52,7 +52,7 @@ class PlayState extends Phaser.State {
     this.game.world.add(this.message);
     */
 
-    _.times(20, this.make_bean, this);
+    _.times(40, this.make_bean, this);
     this.game.jar.bringToTop();
 
     //register input handler

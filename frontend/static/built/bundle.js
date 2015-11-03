@@ -97,17 +97,17 @@ var Bean = (function (_Phaser$Sprite) {
   function Bean(game) {
     _classCallCheck(this, Bean);
 
-    var sprite_key = _lodash2["default"].sample(["guin_1", "guin_2", "guin_3", "cat_1", "cat_2", "cat_3", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean"]);
+    var sprite_key = _lodash2["default"].sample(["guin_1", "guin_2", "guin_3", "cat_1", "cat_2", "cat_3", "orange_bean", "black_bean", "orange_bean", "black_bean", "orange_bean", "black_bean"]);
     _get(Object.getPrototypeOf(Bean.prototype), "constructor", this).call(this, game, game.jar.x, game.jar.y, sprite_key);
 
     //sprite attributes
     var scale = _lodash2["default"].random(0.5, 1.2);
-    this.width = 60 * scale;
-    this.height = 45 * scale;
+    this.width = 90 * scale;
+    this.height = 68 * scale;
 
     //physics attributes
     game.physics.box2d.enable(this);
-    this.body.setCircle(10);
+    this.body.setCircle(18);
     this.body.restitution = 0.1;
     this.body.friction = 0.3;
     this.body.mass = 0.01;
@@ -476,7 +476,7 @@ var PlayState = (function (_Phaser$State) {
       this.game.world.add(this.message);
       */
 
-      _lodash2['default'].times(20, this.make_bean, this);
+      _lodash2['default'].times(40, this.make_bean, this);
       this.game.jar.bringToTop();
 
       //register input handler

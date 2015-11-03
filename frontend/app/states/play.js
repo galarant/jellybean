@@ -14,6 +14,8 @@ class PlayState extends Phaser.State {
     this.game.load.bitmapFont('guin',
       'static/assets/fonts/guin.png',
       'static/assets/fonts/guin.fnt');
+    this.timer = new Phaser.Time(this.game);
+    this.timer.advancedTiming = true;
   }
 
   create() {
@@ -50,7 +52,7 @@ class PlayState extends Phaser.State {
     this.game.world.add(this.message);
     */
 
-    _.times(150, this.make_bean, this);
+    _.times(20, this.make_bean, this);
     this.game.jar.bringToTop();
 
     //register input handler

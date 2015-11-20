@@ -32,7 +32,6 @@ var/
 # OSX Bullshit
 .DS_Store 
 
+#frontend stuff
 frontend/node_modules
-
-frontend/static/built/bundle.js
-frontend/static/built/bundle.css
+frontend/static/built/

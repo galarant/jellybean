@@ -20,7 +20,7 @@ var gulp = require('gulp'),
   },
   path = {
     dest: 'static/built/',
-    source: 'apps/halloween/',
+    source: 'apps/',
 
     cssLibs: []
   },
@@ -29,7 +29,7 @@ var gulp = require('gulp'),
 
 browserify = browserify(path.source + 'app.js', {
     baseDir: path.source,
-    paths: ['./node_modules', './apps/halloween']
+    paths: ['./node_modules', './apps']
   })
   .transform(babelify);
 

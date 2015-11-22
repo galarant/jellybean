@@ -1,0 +1,28 @@
+<html>
+
+  <head>
+    <title>guin</title>
+
+    <!-- Have to include Phaser via script tag due to a shitty bug -->
+    <!-- Have to include Phaser.Box2D via script tag because it's a commercial lib -->
+    <script type="text/javascript" src="/static/assets/vendor/phaser.min.js" defer></script>
+    <script type="text/javascript" src="/static/assets/vendor/box2d-plugin-full.min.js" defer></script>
+
+    <!-- Bundled Resources -->
+    <link rel="shortcut icon" type="image/gif" href="/static/assets/favicon.ico?v=4">
+    <link rel="stylesheet" href="/static/built/bundle.css">
+    <script type="text/javascript" src="/static/built/bundle.js" defer></script>
+
+  </head>
+
+  <body ng-app="guin">
+
+    <!-- MAIN CONTENT -->
+    <div ng-controller="GuinController as ctrl">
+      <div id="guin_canvas">
+      </div>
+    </div>
+
+  </body>
+
+</html>

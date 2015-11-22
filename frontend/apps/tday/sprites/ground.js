@@ -5,7 +5,7 @@ class Ground extends Phaser.Physics.Box2D.Body{
     super(game,
           null,
           0,
-          game.bg.height - game.bg.height / 3);
+          game.height - game.height / 4);
     this.addEdge(0, 0, this.game.width, 0);
     this.static = true;
   }

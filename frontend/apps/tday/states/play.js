@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { Bg } from '../sprites/bg';
 import { Ground } from '../sprites/ground';
+import { SlingShot } from '../sprites/slingshot';
 
 class PlayState extends Phaser.State {
 
@@ -28,6 +29,7 @@ class PlayState extends Phaser.State {
     //add game objects
     this.game.bg = new Bg(this.game);
     this.game.ground = new Ground(this.game);
+    this.game.slingshot = new SlingShot(this.game);
 
   }
 

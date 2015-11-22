@@ -6,7 +6,7 @@ class PreloadState extends Phaser.State {
   }
 
   preload() {
-    //show the preloader while assets/halloween are loading
+    //show the preloader while assets are loading
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.preloader = this.add.sprite(this.game.world.centerX,
                                      this.game.world.centerY,
@@ -14,8 +14,9 @@ class PreloadState extends Phaser.State {
     this.preloader.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(this.preloader);
 
-    //load our assets/halloween
-    this.load.image("bg", "static/assets/halloween/bg.jpg");
+    //load our assets
+    this.load.image("bg", "static/assets/tday/bg.jpg");
+    this.load.image("slingshot", "static/assets/tday/slingshot.png");
     this.load.bitmapFont('guin',
       'static/assets/fonts/guin.png',
       'static/assets/fonts/guin.fnt');

@@ -4,6 +4,7 @@ import { Bg } from "tday/sprites/bg";
 import { Ground } from "tday/sprites/ground";
 import { SlingShot } from "tday/sprites/slingshot";
 import { Pellet } from "tday/sprites/pellet";
+import { Plate } from "tday/sprites/plate";
 
 class PlayState extends Phaser.State {
 
@@ -31,19 +32,24 @@ class PlayState extends Phaser.State {
     this.game.bg = new Bg(this.game);
     this.game.ground = new Ground(this.game);
     this.game.slingshot = new SlingShot(this.game);
-    this.game.slingshot.load_pellet();
+    this.game.plate = new Plate(this.game);
+    this.game.pellets = [];
+    this.game.plate.fill();
 
     //set up input handlers
     this.game.input.onDown.add(this.mouseDragStart, this);
     this.game.input.addMoveCallback(this.mouseDragMove, this);
-    this.game.input.onUp.add(this.mouseDragEnd, this);
+    this.game.input.onUp.add(this.mouseUp, this);
   }
   mouseDragStart() {
+    //not dragging the loaded pellet
     if (this.game.slingshot.pellet === null)
       return;
 
     let bodies_under_pointer = this.game.physics.box2d.getBodiesAtPoint(
       this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+
+    //dragging the loaded pellet
     if (_.includes(bodies_under_pointer, this.game.slingshot.pellet.body)) {
       this.game.slingshot.firing = true;
       this.game.physics.box2d.mouseDragStart(this.game.input.mousePointer);
@@ -51,23 +57,43 @@ class PlayState extends Phaser.State {
   }
 
   mouseDragMove() {
+    //not dragging the loaded pellet
     if (!this.game.slingshot.firing)
       return;
 
-    if (this.game.input.mousePointer.x < this.game.slingshot.pellet.start_position.x + 50 &&
-        this.game.input.mousePointer.y > this.game.slingshot.pellet.start_position.y - 100) {
-      this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer);
-    } else {
-      this.game.slingshot.load_pellet();
-    }
+    //dragging the loaded pellet
+    this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer);
+  }
+
+  mouseUp() {
+    let bodies_under_pointer = this.game.physics.box2d.getBodiesAtPoint(
+      this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+
+    let sprites_under_pointer = _.map(bodies_under_pointer, function(x) { return x.sprite; });
+    let pellets_under_pointer = _.intersection(sprites_under_pointer, this.game.pellets);
+
+    //nothing important under pointer
+    if (pellets_under_pointer.length === 0) {
+      return;
+
+    //finished dragging the loaded pellet
+    } else if (this.game.slingshot.firing) {
+      this.game.physics.box2d.mouseDragEnd(this.game.input.mousePointer);
+      this.game.slingshot.fire();
+
+    //clicked on pellet and the slingshot is empty
+    } else if (this.game.slingshot.pellet === null) {
+      let this_pellet = pellets_under_pointer[0];
+
+    //anything else
+    } else return;
+
   }
 
   mouseDragEnd() {
     if (!this.game.slingshot.firing)
       return;
 
-    this.game.physics.box2d.mouseDragEnd(this.game.input.mousePointer);
-    this.game.slingshot.fire();
   }
 
   update() {

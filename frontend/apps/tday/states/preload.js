@@ -19,6 +19,7 @@ class PreloadState extends Phaser.State {
     this.load.image("slingshot", "static/assets/tday/slingshot.png");
     this.load.image("pellet", "static/assets/tday/pellet.png");
     this.load.image("band", "static/assets/tday/band.png");
+    this.load.image("plate", "static/assets/tday/plate.png");
     this.load.bitmapFont('guin',
       'static/assets/fonts/guin.png',
       'static/assets/fonts/guin.fnt');

@@ -8,7 +8,7 @@ class SlingShot extends Phaser.Sprite {
     let width = game.width / 12;
     let height = width / 0.402;
     super(game,
-          game.width / 5,
+          game.width / 7,
           game.ground.y - height,
           "slingshot");
     this.width = width;
@@ -22,16 +22,14 @@ class SlingShot extends Phaser.Sprite {
     this.firing = false;
   }
 
-  load_pellet() {
-    //if there is a pellet already then clear it out
-    if (this.pellet !== null)
-      this.pellet.destroy();
+  load_pellet(pellet) {
+
     if (this.front_band !== null)
       this.front_band.destroy();
     if (this.back_band !== null)
       this.back_band.destroy();
 
-    this.pellet = new Pellet(this.game);
+    pellet.load_into_slingshot();
     this.front_band = new Band(this.game, true);
     this.back_band = new Band(this.game, false);
     this.pellet.bringToTop();

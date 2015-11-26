@@ -8,7 +8,7 @@ class Plate extends Phaser.Sprite {
     let width = game.width / 3;
     let height = width / 3.16;
     super(game,
-          (game.width - game.width / 2.25) - width / 2,
+          (game.width - game.width / 1.75) - width / 2,
           game.ground.y - height * 0.75,
           "plate");
     this.width = width;

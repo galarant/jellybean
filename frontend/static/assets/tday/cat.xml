@@ -1,0 +1,12 @@
+<TextureAtlas imagePath="cat.png">
+        <SubTexture name="stand_mouth_open_1" x="2" y="2" width="62" height="62" />
+        <SubTexture name="stand_mouth_closed_1" x="65" y="2" width="62" height="62" />
+        <SubTexture name="walking_backwards_1" x="129" y="2" width="62" height="62" />
+        <SubTexture name="walking_backwards_2" x="193" y="2" width="62" height="62" />
+        <SubTexture name="walking_backwards_3" x="257" y="2" width="62" height="62" />
+        <SubTexture name="walking_backwards_4" x="321" y="2" width="62" height="62" />
+        <SubTexture name="walking_forwards_1" x="385" y="2" width="62" height="62" />
+        <SubTexture name="walking_forwards_2" x="449" y="2" width="62" height="62" />
+        <SubTexture name="walking_forwards_3" x="513" y="2" width="62" height="62" />
+        <SubTexture name="walking_forwards_4" x="577" y="2" width="62" height="62" />
+</TextureAtlas>

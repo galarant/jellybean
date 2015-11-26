@@ -35,7 +35,6 @@ class Pellet extends Phaser.Sprite {
     //custom attributes
     this.loaded_into_slingshot = true;
     this.game.slingshot.pellet = this;
-    console.log("loaded into slingshot:", this);
   }
 
   catapult() {

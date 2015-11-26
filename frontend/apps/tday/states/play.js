@@ -5,6 +5,7 @@ import { Ground } from "tday/sprites/ground";
 import { SlingShot } from "tday/sprites/slingshot";
 import { Pellet } from "tday/sprites/pellet";
 import { Plate } from "tday/sprites/plate";
+import { Cat } from "tday/sprites/cat";
 
 class PlayState extends Phaser.State {
 
@@ -14,7 +15,7 @@ class PlayState extends Phaser.State {
 
     //config game world
     this.stage.backgroundColor = "#000000";
-    this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+    this.game.world.setBounds(0, 0, this.game.width * 1.5, this.game.height);
 
     //config physics
     this.game.physics.startSystem(Phaser.Physics.BOX2D);
@@ -35,6 +36,7 @@ class PlayState extends Phaser.State {
     this.game.plate = new Plate(this.game);
     this.game.pellets = [];
     this.game.plate.fill();
+    this.game.cat = new Cat(this.game);
 
     //set up input handlers
     this.game.input.onDown.add(this.mouseDragStart, this);
@@ -85,14 +87,13 @@ class PlayState extends Phaser.State {
     } else if (this.game.slingshot.pellet === null) {
       let this_pellet = pellets_under_pointer[0];
 
+      //if pellet is unused then load it into the slingshot
+      if (!this_pellet.catapulted) {
+        this.game.slingshot.load_pellet(this_pellet);
+      }
+
     //anything else
     } else return;
-
-  }
-
-  mouseDragEnd() {
-    if (!this.game.slingshot.firing)
-      return;
 
   }
 

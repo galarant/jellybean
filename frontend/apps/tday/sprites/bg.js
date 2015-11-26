@@ -6,8 +6,8 @@ class Bg extends Phaser.Sprite {
           0,
           0,
           "bg");
-    this.width = game.width;
-    this.height = game.height + 200;
+    this.width = game.camera.width;
+    this.height = game.camera.height * 1.2;
 
     //world stuff
     game.world.add(this);

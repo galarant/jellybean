@@ -9,4 +9,6 @@
         <SubTexture name="walking_forwards_2" x="449" y="2" width="62" height="62" />
         <SubTexture name="walking_forwards_3" x="513" y="2" width="62" height="62" />
         <SubTexture name="walking_forwards_4" x="577" y="2" width="62" height="62" />
+        <SubTexture name="celebrating_1" x="34" y="292" width="62" height="62" />
+        <SubTexture name="celebrating_2" x="162" y="292" width="62" height="62" />
 </TextureAtlas>

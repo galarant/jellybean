@@ -35,14 +35,17 @@ class PlayState extends Phaser.State {
     this.game.slingshot = new SlingShot(this.game);
     this.game.plate = new Plate(this.game);
     this.game.pellets = [];
-    this.game.plate.fill();
     this.game.cat = new Cat(this.game);
+    this.game.plate.fill();
+    _.each(this.game.pellets, function(pellet) {
+    }, this);
 
     //set up input handlers
     this.game.input.onDown.add(this.mouseDragStart, this);
     this.game.input.addMoveCallback(this.mouseDragMove, this);
     this.game.input.onUp.add(this.mouseUp, this);
   }
+
   mouseDragStart() {
     //not dragging the loaded pellet
     if (this.game.slingshot.pellet === null)
@@ -80,7 +83,11 @@ class PlayState extends Phaser.State {
 
     //finished dragging the loaded pellet
     } else if (this.game.slingshot.firing) {
+      let this_pellet = pellets_under_pointer[0];
       this.game.physics.box2d.mouseDragEnd(this.game.input.mousePointer);
+      this_pellet.body.setBodyContactCallback(this.game.ground, this.pellet_collision, this);
+      this_pellet.body.setBodyContactCallback(this.game.plate.surface, this.pellet_collision, this);
+      this_pellet.body.setBodyContactCallback(this.game.cat.surface, this.pellet_collision, this);
       this.game.slingshot.fire();
 
     //clicked on pellet and the slingshot is empty
@@ -89,12 +96,31 @@ class PlayState extends Phaser.State {
 
       //if pellet is unused then load it into the slingshot
       if (!this_pellet.catapulted) {
-        this.game.slingshot.load_pellet(this_pellet);
+        let load_pellet_callback = function() {
+          this.game.slingshot.load_pellet(this_pellet);
+        };
+
+        this.game.add.tween(this_pellet).to({alpha: 0}, Phaser.Timer.SECOND * 0.75, "Linear", true);
+        let pellet_select_tween = this.game.add.tween(this_pellet.scale);
+        pellet_select_tween.to({x: 5, y: 5}, Phaser.Timer.SECOND * 0.80, "Linear", true);
+        pellet_select_tween.onComplete.add(load_pellet_callback, this);
       }
 
     //anything else
     } else return;
 
+  }
+
+  //context of "this" is the pellet!
+  pellet_collision(pellet, surface, pellet_fixture, surface_fixture, begin) {
+    if (begin) {
+      var smoke_puff = this.game.add.sprite(pellet.sprite.x - pellet.sprite.width,
+                                            pellet.sprite.y - pellet.sprite.height,
+                                            "smoke_puff");
+      smoke_puff.animations.add("explode");
+      smoke_puff.animations.play("explode", 10, false, true);
+      pellet.sprite.destroy();
+    }
   }
 
   update() {

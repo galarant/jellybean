@@ -25,10 +25,16 @@ class Cat extends Phaser.Sprite {
     this.animations.add("walking_backwards",
                         Phaser.Animation.generateFrameNames("walking_backwards_", 1, 4),
                         4, true);
+    this.animations.add("celebrating",
+                        Phaser.Animation.generateFrameNames("celebrating_", 1, 2),
+                        2, true);
+
 
     //custom attributes
     this.surface = null;
     this.mouth_open = false;
+    this.celebrating = false;
+    this.fullness = 0;
     this.set_surface();
     this.walk_forwards();
   }
@@ -84,12 +90,25 @@ class Cat extends Phaser.Sprite {
     this.set_surface();
   }
 
+  celebrate() {
+    let finished_celebrating = function() {
+      this.celebrating = false;
+      this.open_mouth();
+    };
+
+    this.game.time.events.removeAll();
+    this.game.time.events.add(Phaser.Timer.SECOND * 2, finished_celebrating, this);
+    this.celebrating = true;
+  }
+
   update() {
     //set the animation state
     if (this.walking_forwards) {
       this.animations.play("walking_forwards");
     } else if (this.walking_backwards) {
       this.animations.play("walking_backwards");
+    } else if (this.celebrating) {
+      this.animations.play("celebrating");
     } else if (this.mouth_open) {
       this.animations.play("stand_mouth_open");
     } else {

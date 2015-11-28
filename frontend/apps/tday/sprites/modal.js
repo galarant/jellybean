@@ -1,6 +1,6 @@
 class Modal extends Phaser.Group {
 
-  constructor(game, message_text="Paused", can_close=true) {
+  constructor(game, message_text="Paused", can_close=true, additional_message_text=false) {
     //group attributes
     super(game, game.world);
 
@@ -26,13 +26,27 @@ class Modal extends Phaser.Group {
 
     //custom attributes
     if (can_close) {
-      game.input.onDown.add(this.close, this);
+      game.input.onDown.addOnce(this.close, this);
     }
+    this.additional_message_text = additional_message_text;
   }
 
   show_message() {
+    let show_additional_message = function() {
+      this.message.text = this.additional_message_text;
+      this.message.alpha = 1;
+    };
+
     this.message.alpha = 1;
-    this.game.paused = true;
+    if (this.additional_message_text) {
+      let fade_tween = this.game.add.tween(this.message).to({alpha: 0},
+                                                            Phaser.Timer.SECOND * 0.5,
+                                                            "Linear", true,
+                                                            Phaser.Timer.SECOND * 5.0);
+      fade_tween.onComplete.add(show_additional_message, this);
+    } else {
+      this.game.paused = true;
+    }
   }
 
   close() {

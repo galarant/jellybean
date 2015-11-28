@@ -69,6 +69,11 @@ class Pellet extends Phaser.Sprite {
     }
   }
 
+  destroy() {
+    this.game.num_pellets -= 1;
+    return super.destroy();
+  }
+
 }
 
 export { Pellet };

@@ -7,13 +7,13 @@ class Pellet extends Phaser.Sprite {
     let pellet_choice = "pellet_" + _.random(1,7);
     super(game, x, y, pellet_choice);
     this.anchor.setTo(0.5);
-    this.width = game.width / 24;
+    this.width = game.camera.height / 10;
     this.height = this.width * 0.75;
     game.world.add(this);
 
     //physics attributes
     game.physics.box2d.enable(this);
-    this.body.setCircle(this.width / 3);
+    this.body.setCircle(this.width / 4);
     this.body.friction = 4.0;
     this.body.angularDamping = 5.0;
 
@@ -29,7 +29,7 @@ class Pellet extends Phaser.Sprite {
 
   load_into_slingshot() {
     //body attributes
-    this.alpha = 1;
+    this.game.time.events.add(Phaser.Timer.SECOND * 0.3, function() { this.alpha = 1; }, this);
     this.width = this.original_size.width;
     this.height = this.original_size.height;
     this.body.x = this.loaded_position.x;
@@ -46,8 +46,8 @@ class Pellet extends Phaser.Sprite {
 
   catapult() {
     //physics attributes
-    let dx = this.game.input.mousePointer.position.x - this.loaded_position.x;
-    let dy = this.game.input.mousePointer.position.y - this.loaded_position.y;
+    let dx = this.game.input.activePointer.position.x - this.loaded_position.x;
+    let dy = this.game.input.activePointer.position.y - this.loaded_position.y;
     this.body.gravityScale = 1;
     this.body.fixedRotation = false;
     this.body.velocity.x = -dx * 10;

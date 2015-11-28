@@ -4,7 +4,7 @@ class BootState extends Phaser.State {
     this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     this.game.scale.pageAlignVertically = true;
     this.game.scale.pageAlignHorizontally = true;
-    this.load.image('preloader', 'static/assets/preloader.gif');
+    this.load.image('preloader', 'static/assets/loading.png');
   }
 
   create() {

@@ -34,7 +34,7 @@ class Cat extends Phaser.Sprite {
     this.surface = null;
     this.mouth_open = false;
     this.celebrating = false;
-    this.fullness = 85;
+    this.fullness = 0;
     this.set_surface();
     this.walk_forwards();
   }
@@ -62,7 +62,7 @@ class Cat extends Phaser.Sprite {
       this.game.time.events.add(Phaser.Timer.SECOND * 1, this.open_mouth, this);
     };
 
-    let this_tween = this.game.add.tween(this).to({x: this.game.plate.x + this.game.plate.width + 100}, Phaser.Timer.SECOND * 2, "Linear", true);
+    let this_tween = this.game.add.tween(this).to({x: this.game.plate.x + this.game.plate.width + this.game.camera.width / 8.0}, Phaser.Timer.SECOND * 2, "Linear", true);
     this_tween.onComplete.add(finished_walking_forwards, this);
     this.walking_forwards = true;
   }

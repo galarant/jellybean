@@ -23,10 +23,10 @@ class Band extends Phaser.Sprite {
     let pellet_distance = this.start_pos.distance(pellet);
     let pellet_angle = this.start_pos.angle(pellet);
 
-    this.width = pellet_distance + pellet.width / 2 + 25;
-    this.rotation = pellet_angle + 0.05;
-    this.y = this.start_pos.y + 20;
-    this.x = this.start_pos.x + 20;
+    this.width = pellet_distance + pellet.width / 2 + this.game.camera.height / 40;
+    this.rotation = pellet_angle + 0.10;
+    this.y = this.start_pos.y + this.game.camera.height / 45;
+    this.x = this.start_pos.x + this.game.camera.height / 45;
   }
 
 }

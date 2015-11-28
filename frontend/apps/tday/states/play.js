@@ -6,6 +6,7 @@ import { SlingShot } from "tday/sprites/slingshot";
 import { Pellet } from "tday/sprites/pellet";
 import { Plate } from "tday/sprites/plate";
 import { Cat } from "tday/sprites/cat";
+import { FullnessBar} from "tday/sprites/fullness_bar";
 
 class PlayState extends Phaser.State {
 
@@ -36,6 +37,7 @@ class PlayState extends Phaser.State {
     this.game.plate = new Plate(this.game);
     this.game.pellets = [];
     this.game.cat = new Cat(this.game);
+    this.game.fullness_bar = new FullnessBar(this.game);
     this.game.plate.fill();
     _.each(this.game.pellets, function(pellet) {
     }, this);

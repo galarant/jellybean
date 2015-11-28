@@ -34,7 +34,7 @@ class Cat extends Phaser.Sprite {
     this.surface = null;
     this.mouth_open = false;
     this.celebrating = false;
-    this.fullness = 120;
+    this.fullness = 0;
     this.set_surface();
     this.walk_forwards();
   }

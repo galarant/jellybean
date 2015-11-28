@@ -14,7 +14,7 @@ class PreloadState extends Phaser.State {
     this.preloader.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(this.preloader);
 
-    //load our assets
+    //load sprites
     this.load.image("bg", "static/assets/tday/bg.jpg");
     this.load.image("slingshot", "static/assets/tday/slingshot.png");
     this.load.image("pellet_1", "static/assets/tday/pellet_1.png");
@@ -28,8 +28,13 @@ class PreloadState extends Phaser.State {
     this.load.image("plate", "static/assets/tday/plate.png");
     this.load.image("fullness_bar", "static/assets/tday/fullness_bar.png");
     this.load.image("fullness_bar_outline", "static/assets/tday/fullness_bar_outline.png");
+    this.load.image("darken", "static/assets/tday/darken.png");
+
+    //load animations
     this.load.atlasXML("cat", "static/assets/tday/cat.png", "static/assets/tday/cat.xml");
     this.load.spritesheet("smoke_puff", "static/assets/tday/smoke_puff.png", 128, 128, 10);
+
+    //load fonts
     this.load.bitmapFont('guin',
       'static/assets/fonts/guin.png',
       'static/assets/fonts/guin.fnt');

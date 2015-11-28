@@ -7,6 +7,7 @@ import { Pellet } from "tday/sprites/pellet";
 import { Plate } from "tday/sprites/plate";
 import { Cat } from "tday/sprites/cat";
 import { FullnessBar} from "tday/sprites/fullness_bar";
+import { Modal } from "tday/sprites/modal";
 
 class PlayState extends Phaser.State {
 
@@ -46,6 +47,10 @@ class PlayState extends Phaser.State {
     this.game.input.onDown.add(this.mouseDragStart, this);
     this.game.input.addMoveCallback(this.mouseDragMove, this);
     this.game.input.onUp.add(this.mouseUp, this);
+
+    //fire the modal with a welcome message
+    new Modal(this.game, "A dinner guest is arriving!\n\n  You must feed her your most delicious noms.");
+
   }
 
   mouseDragStart() {

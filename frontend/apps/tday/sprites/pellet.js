@@ -63,7 +63,7 @@ class Pellet extends Phaser.Sprite {
         this.x > this.game.cat.surface.x + 10 &&
         this.x < this.game.cat.surface.x + this.game.cat.width &&
         this.y > this.game.cat.surface.y) {
-      this.game.cat.fullness += 15;
+      this.game.add.tween(this.game.cat).to({fullness: "+15"}, Phaser.Timer.SECOND / 2, "Linear", true);
       this.game.cat.celebrate();
       this.destroy();
     }

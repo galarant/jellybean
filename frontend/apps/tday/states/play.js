@@ -11,9 +11,21 @@ import { Modal } from "tday/sprites/modal";
 
 class PlayState extends Phaser.State {
 
-  preload() {}
+  preload() {
+    let orientation_change = function() {
+      this.game.state.start("play");
+    };
+    this.game.input.maxPointers = 1;
+    this.game.scale.forceOrientation(true, false);
+    this.game.scale.onOrientationChange.add(orientation_change, this);
+  }
 
   create() {
+
+    if (this.game.scale.incorrectOrientation) {
+      new Modal(this.game, "   Please rotate your device to Landscape and touch the screen to start", true, false, 1.0);
+      return;
+    }
 
     //config game world
     this.stage.backgroundColor = "#000000";
@@ -40,16 +52,18 @@ class PlayState extends Phaser.State {
     this.game.num_pellets = 0;
     this.game.cat = new Cat(this.game);
     this.game.fullness_bar = new FullnessBar(this.game);
-    this.game.plate.fill(3);
+    this.game.plate.fill(15);
     this.game.game_over = false;
 
     //set up input handlers
+    /*
     this.game.input.onDown.add(this.mouseDragStart, this);
     this.game.input.addMoveCallback(this.mouseDragMove, this);
     this.game.input.onUp.add(this.mouseUp, this);
+    */
 
     //fire the modal with a welcome message
-    new Modal(this.game, "A dinner guest is arriving!\n\n  You must feed her your most delicious noms.");
+    new Modal(this.game, "A dinner guest is arriving!\n\n    You must feed her your most delicious noms.");
 
   }
 
@@ -59,12 +73,12 @@ class PlayState extends Phaser.State {
       return;
 
     let bodies_under_pointer = this.game.physics.box2d.getBodiesAtPoint(
-      this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+      this.game.input.activePointer.x, this.game.input.activePointer.y);
 
     //dragging the loaded pellet
     if (_.includes(bodies_under_pointer, this.game.slingshot.pellet.body)) {
       this.game.slingshot.firing = true;
-      this.game.physics.box2d.mouseDragStart(this.game.input.mousePointer);
+      this.game.physics.box2d.mouseDragStart(this.game.input.activePointer);
     }
   }
 
@@ -74,12 +88,12 @@ class PlayState extends Phaser.State {
       return;
 
     //dragging the loaded pellet
-    this.game.physics.box2d.mouseDragMove(this.game.input.mousePointer);
+    this.game.physics.box2d.mouseDragMove(this.game.input.activePointer);
   }
 
   mouseUp() {
     let bodies_under_pointer = this.game.physics.box2d.getBodiesAtPoint(
-      this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+      this.game.input.activePointer.x, this.game.input.activePointer.y);
 
     let sprites_under_pointer = _.map(bodies_under_pointer, function(x) { return x.sprite; });
     let pellets_under_pointer = _.intersection(sprites_under_pointer, this.game.pellets);
@@ -91,7 +105,7 @@ class PlayState extends Phaser.State {
     //finished dragging the loaded pellet
     } else if (this.game.slingshot.firing) {
       let this_pellet = pellets_under_pointer[0];
-      this.game.physics.box2d.mouseDragEnd(this.game.input.mousePointer);
+      this.game.physics.box2d.mouseDragEnd(this.game.input.activePointer);
       this_pellet.body.setBodyContactCallback(this.game.ground, this.pellet_collision, this);
       this_pellet.body.setBodyContactCallback(this.game.plate.surface, this.pellet_collision, this);
       this_pellet.body.setBodyContactCallback(this.game.cat.surface, this.pellet_collision, this);
@@ -133,6 +147,17 @@ class PlayState extends Phaser.State {
   update() {
     //debug info
     //this.game.debug.box2dWorld();
+    if (this.game.input.activePointer) {
+      if (this.game.input.activePointer.isDown) {
+        if (this.game.input.activePointer.justPressed()) {
+          this.mouseDragStart();
+        } else {
+          this.mouseDragMove();
+        }
+      } else if (this.game.input.activePointer.justReleased()) {
+        this.mouseUp();
+      }
+    }
 
     //handle game over states
     if (!this.game.game_over) {

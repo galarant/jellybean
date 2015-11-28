@@ -27,6 +27,7 @@ class Plate extends Phaser.Sprite {
                               this.x + this.width / 2 + _.random(50),
                               this.y + _.random(50));
       this.game.pellets.push(pellet);
+      this.game.num_pellets += 1;
     };
     _.times(num_pellets, create_pellet, this);
   }

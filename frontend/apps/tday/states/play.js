@@ -37,11 +37,11 @@ class PlayState extends Phaser.State {
     this.game.slingshot = new SlingShot(this.game);
     this.game.plate = new Plate(this.game);
     this.game.pellets = [];
+    this.game.num_pellets = 0;
     this.game.cat = new Cat(this.game);
     this.game.fullness_bar = new FullnessBar(this.game);
-    this.game.plate.fill();
-    _.each(this.game.pellets, function(pellet) {
-    }, this);
+    this.game.plate.fill(3);
+    this.game.game_over = false;
 
     //set up input handlers
     this.game.input.onDown.add(this.mouseDragStart, this);
@@ -133,6 +133,19 @@ class PlayState extends Phaser.State {
   update() {
     //debug info
     //this.game.debug.box2dWorld();
+
+    //handle game over states
+    if (!this.game.game_over) {
+      if (this.game.cat.fullness >= 100) {
+        new Modal(this.game,
+                  "You Win!!\n\n Your guest has been satisfied and Thanksgiving is saved!\n\n For now..", false,
+                  "for Angelika..\nmy favorite guin");
+        this.game.game_over = true;
+      } else if (this.game.num_pellets === 0) {
+        new Modal(this.game, "Whoops, you ran out of food!\n\n Refresh to try again.", false);
+        this.game.game_over = true;
+      }
+    }
   }
 
 }

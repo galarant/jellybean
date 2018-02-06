@@ -1,2 +1,2 @@
 # jellybean
-fun stuff for the guin
+Just a place for hacking on fun canvas games
